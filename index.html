@@ -62,14 +62,17 @@
         '/pogoda kraków': "W Krakowie jest 22 stopnie."
     };
 
+    const previousResponses = {};
+
     function sendMessage() {
         const userMessage = userInput.value.trim();
         if (userMessage === "") return;
 
         if (forbiddenWords.some(word => userMessage.toLowerCase().includes(word))) {
+            alert('Wykryto przestępstwo! Bagiety już jadą 🚨 🚓')
             setTimeout(() => {
-                addMessage("Bot", "Ups.. muszę to usunąć... Proszę, nie używaj takich brzydkich słów :)", true);
-            }, 2000)
+                addMessage("Bot", "Proszę, nie używaj takich brzydkich słów :)", true);
+            }, 1000)
             userInput.value = "";
             return;
         }
@@ -94,13 +97,17 @@
 
     function simulateBotResponse(userMessage) {
         setTimeout(() => {
+            const normalizedMessage = userMessage.toLowerCase();
             let botMessage;
 
-            if (botResponses[userMessage]) {
-                botMessage = botResponses[userMessage];
+            if (botResponses[normalizedMessage]) {
+                botMessage = botResponses[normalizedMessage];
+            } else if (previousResponses[normalizedMessage]) {
+                botMessage = previousResponses[normalizedMessage];
             } else {
                 const randomIndex = Math.floor(Math.random() * botResponses.default.length);
                 botMessage = botResponses.default[randomIndex];
+                previousResponses[normalizedMessage] = botMessage;
             }
 
             addMessage("Bot", botMessage);
