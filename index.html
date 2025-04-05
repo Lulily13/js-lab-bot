@@ -8,9 +8,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header></header>
+<header>
+    <div class="header-container">
+        <h1>Bot InteligentnyInaczej</h1>
+        <p>Rozmawiaj z botem na temat JavaScript!</p>
+    </div>
+</header>
 
-<main></main>
+<div class="chat-container">
+    <div class="chat-box" id="chatBox">
+        <div class="message bot-message">
+            Cześć, jak tam zajęcia z JS?
+        </div>
+    </div>
+    <div class="input-container">
+        <input type="text" id="userInput" placeholder="Wpisz wiadomość..." />
+        <button onclick="sendMessage()">Wyślij</button>
+    </div>
+</div>
 
 <footer>
     <p>&copy; 2025 Bot InteligentnyInaczej. Metody Wytwarzania Oprogramowania. Natalia Grzywna. </p>
