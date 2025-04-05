@@ -88,6 +88,14 @@ header {
     flex-direction: column;
 }
 
+.user-message {
+    background-color: var(--light-purple);
+    border-radius: 5px;
+    padding: 8px;
+    margin: 5px 0;
+    text-align: right;
+}
+
 .bot-message {
     background-color: var(--purple);
     border-radius: 5px;
@@ -95,3 +103,13 @@ header {
     margin: 5px 0;
     color: white;
 }
+
+.bot-warning {
+    background-color: var(--dark-green);
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+
