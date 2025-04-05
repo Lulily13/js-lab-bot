@@ -31,6 +31,88 @@
     <p>&copy; 2025 Bot InteligentnyInaczej. Metody Wytwarzania Oprogramowania. Natalia Grzywna. </p>
 </footer>
 
-<script></script>
+<script>
+
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+
+    const forbiddenWords = ['motyla noga', 'krowie kopytko', 'kur zapiał', 'twoja stara'];
+    const botResponses = {
+        default: [
+            "Nie rozumiem, spróbuj jeszcze raz.",
+            "Proszę powiedz mi więcej!",
+            "Hmm, ciekawa sprawa, opowiedz więcej!",
+            "To brzmi jak coś, co wymaga kawy ☕",
+            "Czasem też się nad tym zastanawiam...",
+            "Ooo, interesujące! A co dalej?",
+            "Brzmi jak wyzwanie dla JavaScriptu!",
+            "Może i tak, ale czy na pewno? 🤔",
+            "Twoje pytanie przypomina mi wiersz... ale nie wiem jaki.",
+            "A gdyby tak napisać to w TypeScripcie? 😉",
+            "Nie wiem, ale brzmi mądrze!",
+            "Masz rację... albo i nie. Ciężko stwierdzić.",
+            "Z takimi pytaniami powinieneś iść do Stack Overflow 😅",
+            "Ciekawe, wpiszę to w Google... A nie, zapomniałem, że jestem botem i nie myślę 😅",
+            "Myślę, że to zależy od kontekstu. I humoru... 😅",
+            "Fajne pytanie! Ale ja mam tylko 4 linijki kodu logiki.",
+            "Tak, zdecydowanie tak... chyba.",
+            "To mnie przerosło, ale udaję że wiem o co chodzi 😎"
+        ],
+        '/version': "Wersja oprogramowania: v1.2.3",
+        '/pogoda kraków': "W Krakowie jest 22 stopnie."
+    };
+
+    function sendMessage() {
+        const userMessage = userInput.value.trim();
+        if (userMessage === "") return;
+
+        if (forbiddenWords.some(word => userMessage.toLowerCase().includes(word))) {
+            setTimeout(() => {
+                addMessage("Bot", "Ups.. muszę to usunąć... Proszę, nie używaj takich brzydkich słów :)", true);
+            }, 2000)
+            userInput.value = "";
+            return;
+        }
+
+        addMessage("User", userMessage);
+        userInput.value = "";
+        simulateBotResponse(userMessage);
+    }
+
+    function addMessage(sender, message, isWarning = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(sender.toLowerCase() + '-message');
+        if (isWarning) {
+            messageDiv.classList.add('bot-warning');
+        }
+
+        messageDiv.textContent = message;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function simulateBotResponse(userMessage) {
+        setTimeout(() => {
+            let botMessage;
+
+            if (botResponses[userMessage]) {
+                botMessage = botResponses[userMessage];
+            } else {
+                const randomIndex = Math.floor(Math.random() * botResponses.default.length);
+                botMessage = botResponses.default[randomIndex];
+            }
+
+            addMessage("Bot", botMessage);
+        }, 2000);
+    }
+
+    userInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+</script>
 </body>
 </html>
